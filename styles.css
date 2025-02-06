@@ -1,0 +1,277 @@
+:root {
+    --chinese-red: #CC0000;
+    --imperial-gold: #FFD700;
+    --rice-white: #F5F5F5;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--rice-white);
+    color: #333;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 主视觉区样式 */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 2rem;
+    background: url('cloud-pattern.png') repeat;
+}
+
+.main-title-large {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.8rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: normal;
+    white-space: nowrap;
+}
+
+.main-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2.5rem;
+    color: var(--chinese-red);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.date-input-container {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.scroll-input {
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    border: 2px solid var(--imperial-gold);
+    border-radius: 8px;
+    background: var(--rice-white);
+    min-width: 100px;
+}
+
+.seal-button {
+    background: var(--chinese-red);
+    color: var(--rice-white);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.seal-button:hover {
+    transform: scale(1.05);
+}
+
+/* 结果区域样式 */
+.result-section {
+    min-height: auto;
+    padding: 2rem;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.result-section.visible {
+    opacity: 1;
+}
+
+.zodiac-display {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.zodiac-image {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    background: var(--rice-white);
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.zodiac-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--rice-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Serif SC', serif;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.zodiac-image.loading::before {
+    opacity: 1;
+}
+
+.zodiac-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(204, 0, 0, 0.2);
+}
+
+.info-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Result Card Styles */
+.chinese-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.5em;
+    color: var(--chinese-red);
+    margin-right: 0.5em;
+}
+
+.traits-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.trait-tag {
+    background: var(--rice-white);
+    color: var(--chinese-red);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid var(--imperial-gold);
+    font-size: 0.9rem;
+}
+
+.lucky-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.lucky-item {
+    text-align: center;
+    padding: 1rem;
+    background: var(--rice-white);
+    border-radius: 8px;
+}
+
+.lucky-item h4 {
+    color: var(--chinese-red);
+    margin: 0 0 0.5rem 0;
+}
+
+.lucky-item p {
+    margin: 0;
+    color: #666;
+}
+
+/* 添加水墨动画样式 */
+.ink-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.ink-drop {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: inkSpread 3s ease-out forwards;
+}
+
+@keyframes inkSpread {
+    0% {
+        transform: scale(0);
+        opacity: 0.6;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+/* 调整现有内容的z-index以确保在水墨效果之上 */
+.hero-section > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* 添加生肖图标轮播样式 */
+.zodiac-carousel {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    z-index: 2;
+}
+
+.zodiac-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    background: transparent;
+    transition: transform 0.3s ease;
+}
+
+.zodiac-icon:hover {
+    transform: scale(1.1);
+}
+
+.zodiac-icon.active {
+    opacity: 1;
+}
+
+/* 添加标题样式 */
+.year-range, .element {
+    margin: 1.5rem 0;  /* 增加行距 */
+    font-size: 1.1rem;
+}
+
+.year-range strong, .element strong {
+    font-weight: 600;  /* 标题加粗 */
+    color: var(--chinese-red);  /* 使用主题红色 */
+} 
