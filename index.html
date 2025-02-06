@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Your Chinese Zodiac: Personality, Fortune & Compatibility</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 区块一：主视觉区 -->
+        <section class="hero-section">
+            <div class="ink-animation" id="inkAnimation"></div>
+            <h1 class="main-title-large">Chinese Zodiac With Elements Calculator</h1>
+            <h1 class="main-title">What's Your Chinese Zodiac Animal?</h1>
+            <p class="subtitle">Enter your birth year to reveal your zodiac sign, personality traits, and compatible partners.</p>
+            
+            <div class="date-input-container">
+                <select id="yearSelect" class="scroll-input">
+                    <option value="">Year</option>
+                </select>
+                <select id="monthSelect" class="scroll-input">
+                    <option value="">Month</option>
+                </select>
+                <select id="daySelect" class="scroll-input">
+                    <option value="">Day</option>
+                </select>
+            </div>
+            
+            <button id="revealBtn" class="seal-button">
+                Reveal My Zodiac
+            </button>
+        </section>
+
+        <!-- 区块二：结果展示 -->
+        <section class="result-section" id="resultSection">
+            <div class="zodiac-display">
+                <div class="zodiac-image">
+                    <!-- 生肖图片将通过JS动态插入 -->
+                </div>
+                <div class="year-label"></div>
+            </div>
+            
+            <div class="info-card">
+                <h2 class="zodiac-name"></h2>
+                <div class="year-range"></div>
+                <div class="element"></div>
+                <div class="personality-traits"></div>
+                <div class="lucky-info"></div>
+            </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
