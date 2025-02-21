@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discover Your Chinese Zodiac: Personality, Fortune & Compatibility</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -14,7 +14,7 @@
             <div class="ink-animation" id="inkAnimation"></div>
             <h1 class="main-title-large">Chinese Zodiac With Elements Calculator</h1>
             <h1 class="main-title">What's Your Chinese Zodiac Animal?</h1>
-            <p class="subtitle">Enter your birth year to reveal your zodiac sign, personality traits, and compatible partners.</p>
+            <p class="subtitle">Enter your birth year to discover your Chinese Zodiac sign, its element, personality traits, and compatible partners.</p>
             
             <div class="date-input-container">
                 <select id="yearSelect" class="scroll-input">
@@ -35,22 +35,63 @@
 
         <!-- 区块二：结果展示 -->
         <section class="result-section" id="resultSection">
-            <div class="zodiac-display">
-                <div class="zodiac-image">
-                    <!-- 生肖图片将通过JS动态插入 -->
+            <div class="result-container">
+                <div class="zodiac-display">
+                    <div class="zodiac-image">
+                        <!-- 生肖图片将通过JS动态插入 -->
+                    </div>
+                    <div class="year-label"></div>
                 </div>
-                <div class="year-label"></div>
+                
+                <div class="info-card">
+                    <h2 class="zodiac-name"></h2>
+                    <div class="year-range"></div>
+                    <div class="element"></div>
+                    <div class="personality-traits"></div>
+                    <div class="lucky-info"></div>
+                </div>
             </div>
-            
-            <div class="info-card">
-                <h2 class="zodiac-name"></h2>
-                <div class="year-range"></div>
-                <div class="element"></div>
-                <div class="personality-traits"></div>
-                <div class="lucky-info"></div>
+
+            <div class="story-section">
+                <!-- Story content will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <!-- 区块三：兼容性计算器 -->
+        <section class="compatibility-calculator-section">
+            <h2>Chinese Zodiac Compatibility - Is He/She Right for You?</h2>
+            <p class="section-description">
+                An important use of the Chinese zodiac is to determine if two people are compatible in a romantic relationship... or any kind of relationship. 
+                Zodiac compatibility is usually checked before getting married in China.
+            </p>
+            <p class="section-description">
+                People born in a certain zodiac animal year are believed to have attributes of that animal, which determines their personality traits 
+                and could either help or hinder a relationship.
+            </p>
+
+            <div class="compatibility-calculator">
+                <h3>Chinese Zodiac Compatibility Calculator</h3>
+                <p>Enter date of birth and test now</p>
+
+                <div class="date-inputs-container">
+                    <div class="person-input">
+                        <label>Person 1</label>
+                        <input type="date" id="person1Date" class="date-picker">
+                    </div>
+                    <div class="person-input">
+                        <label>Person 2</label>
+                        <input type="date" id="person2Date" class="date-picker">
+                    </div>
+                </div>
+
+                <button id="testCompatibilityBtn" class="seal-button">Test Now</button>
+
+                <div id="compatibilityResult" class="compatibility-result">
+                    <!-- Results will be displayed here -->
+                </div>
             </div>
         </section>
     </div>
-    <script src="script.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html> 

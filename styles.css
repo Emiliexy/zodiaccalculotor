@@ -86,8 +86,85 @@ body {
     transition: opacity 0.3s ease;
 }
 
+/* PC端布局优化 */
+@media screen and (min-width: 768px) {
+    .result-container {
+        display: flex;
+        gap: 3rem;
+        align-items: flex-start;
+        margin-bottom: 3rem;
+    }
+
+    .zodiac-display {
+        flex: 0 0 40%;
+        position: sticky;
+        top: 2rem;
+    }
+
+    .info-card {
+        flex: 0 0 55%;
+        margin: 0;
+    }
+
+    /* 调整故事部分的布局 */
+    .story-section {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .zodiac-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .zodiac-carousel {
+        top: 30px;
+        gap: 30px;
+    }
+
+    .zodiac-tooltip {
+        font-size: 1rem;
+        padding: 6px 12px;
+        margin-top: 8px;
+    }
+}
+
+/* 修复结果区域的显示问题 */
 .result-section.visible {
+    display: block;
     opacity: 1;
+}
+
+/* 移动端布局保持不变 */
+@media screen and (max-width: 767px) {
+    .result-section.visible {
+        display: block;
+    }
+
+    .zodiac-display {
+        margin-bottom: 2rem;
+    }
+
+    .info-card {
+        width: 100%;
+    }
+
+    .zodiac-icon {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* 调整图片容器大小 */
+@media screen and (min-width: 768px) {
+    .zodiac-image {
+        width: 400px;
+        height: 400px;
+    }
 }
 
 .zodiac-display {
@@ -142,6 +219,18 @@ body {
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     max-width: 600px;
     margin: 0 auto;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .fade-in {
@@ -179,10 +268,38 @@ body {
 }
 
 .lucky-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
     margin-top: 1.5rem;
+}
+
+.lucky-group, .unlucky-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.unlucky-group {
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: calc(100% / 6);  /* 居中两个元素 */
+}
+
+@media screen and (max-width: 767px) {
+    .lucky-group, .unlucky-group {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .unlucky-group {
+        margin-left: 0;
+    }
+    
+    /* 在移动端让 Lucky Flower 居中 */
+    .lucky-group .lucky-item:last-child {
+        grid-column: 1 / -1;
+        justify-self: center;
+        width: 50%;
+    }
 }
 
 .lucky-item {
@@ -190,6 +307,11 @@ body {
     padding: 1rem;
     background: var(--rice-white);
     border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.lucky-item:hover {
+    transform: translateY(-5px);
 }
 
 .lucky-item h4 {
@@ -247,18 +369,51 @@ body {
     display: flex;
     gap: 20px;
     z-index: 2;
+    padding: 10px;
 }
 
+.zodiac-icon-wrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.zodiac-tooltip {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    pointer-events: none;
+    margin-top: 5px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.zodiac-icon-wrapper:hover .zodiac-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 修改现有的图标样式 */
 .zodiac-icon {
     width: 40px;
     height: 40px;
     object-fit: contain;
     background: transparent;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    cursor: pointer;
 }
 
 .zodiac-icon:hover {
-    transform: scale(1.1);
+    transform: scale(1.2);
+    filter: brightness(1.2);
 }
 
 .zodiac-icon.active {
@@ -274,4 +429,187 @@ body {
 .year-range strong, .element strong {
     font-weight: 600;  /* 标题加粗 */
     color: var(--chinese-red);  /* 使用主题红色 */
+}
+
+/* 兼容性计算器区块样式 */
+.compatibility-calculator-section {
+    padding: 4rem 2rem;
+    background: linear-gradient(to bottom, var(--rice-white), white);
+}
+
+.compatibility-calculator-section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2rem;
+    color: var(--chinese-red);
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-description {
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.6;
+    text-align: center;
+    color: #444;
+}
+
+.compatibility-calculator {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.compatibility-calculator h3 {
+    text-align: center;
+    color: var(--chinese-red);
+    margin-bottom: 1rem;
+}
+
+.date-inputs-container {
+    display: flex;
+    gap: 2rem;
+    margin: 2rem 0;
+    justify-content: center;
+}
+
+.person-input {
+    flex: 1;
+    max-width: 300px;
+}
+
+.person-input label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #444;
+    font-weight: 500;
+}
+
+.date-picker {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid var(--imperial-gold);
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.compatibility-result {
+    margin-top: 2rem;
+    padding: 2rem;
+    border-radius: 8px;
+    background: var(--rice-white);
+    display: none;
+}
+
+.compatibility-result.visible {
+    display: block;
+    animation: slideIn 0.5s ease-out;
+}
+
+.compatibility-score {
+    text-align: center;
+    font-size: 2rem;
+    color: var(--chinese-red);
+    margin-bottom: 1rem;
+}
+
+.compatibility-description {
+    line-height: 1.6;
+    color: #444;
+}
+
+@media screen and (max-width: 767px) {
+    .date-inputs-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .person-input {
+        width: 100%;
+    }
+}
+
+/* 调整按钮容器样式 */
+#testCompatibilityBtn {
+    margin: 2rem auto;  /* 上下间距2rem，左右自动 */
+    display: block;     /* 使按钮占据独立的块级空间 */
+    min-width: 200px;   /* 设置最小宽度 */
+}
+
+/* 调整按钮悬停效果 */
+#testCompatibilityBtn:hover {
+    transform: scale(1.05);
+    background-color: #b30000;  /* 稍微深一点的红色 */
+}
+
+/* 添加生肖图片对样式 */
+.zodiac-pair {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.zodiac-result-image {
+    text-align: center;
+}
+
+.zodiac-result-image img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: contain;
+    background: var(--rice-white);
+    border: 2px solid var(--imperial-gold);
+    padding: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.zodiac-result-image img:hover {
+    transform: scale(1.1);
+}
+
+.zodiac-result-image h5 {
+    margin: 0.5rem 0;
+    color: var(--chinese-red);
+    font-size: 1.1rem;
+}
+
+.compatibility-heart {
+    font-size: 2rem;
+    color: var(--chinese-red);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* 移动端适配 */
+@media screen and (max-width: 767px) {
+    .zodiac-pair {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .zodiac-result-image img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .compatibility-heart {
+        font-size: 1.5rem;
+    }
 } 
